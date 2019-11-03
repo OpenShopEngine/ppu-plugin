@@ -2,7 +2,7 @@ require_dependency "ppu/application_controller"
 
 module Ppu
   class CheckoutsController < ApplicationController
-    before_action :set_checkout, only: [:show, :update, :destroy]
+    before_action :set_checkout, only: [:show, :destroy]
 
     # GET /checkouts
     def index
@@ -22,15 +22,6 @@ module Ppu
 
       if @checkout.save
         render json: @checkout, status: :created, location: @checkout
-      else
-        render json: @checkout.errors, status: :unprocessable_entity
-      end
-    end
-
-    # PATCH/PUT /checkouts/1
-    def update
-      if @checkout.update(ActiveSupport::JSON.decode(request.body.read))
-        render json: @checkout
       else
         render json: @checkout.errors, status: :unprocessable_entity
       end

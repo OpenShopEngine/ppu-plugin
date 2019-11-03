@@ -15,7 +15,7 @@ module Ppu
 
     test "should create checkout" do
       assert_difference('Checkout.count') do
-        post checkouts_url, params: { checkout: { address: @checkout.address, email: @checkout.email, fullname: @checkout.fullname, phone: @checkout.phone, products: @checkout.products } }, as: :json
+        post checkouts_url, params: { checkout: { address: @checkout.address, email: @checkout.email, fullname: @checkout.fullname, phone: @checkout.phone, products_id: @checkout.products_id, ps_id: @checkout.ps_id } }, as: :json
       end
 
       assert_response 201
@@ -27,7 +27,7 @@ module Ppu
     end
 
     test "should update checkout" do
-      patch checkout_url(@checkout), params: { checkout: { address: @checkout.address, email: @checkout.email, fullname: @checkout.fullname, phone: @checkout.phone, products: @checkout.products } }, as: :json
+      patch checkout_url(@checkout), params: { checkout: { address: @checkout.address, email: @checkout.email, fullname: @checkout.fullname, phone: @checkout.phone, products_id: @checkout.products_id, ps_id: @checkout.ps_id } }, as: :json
       assert_response 200
     end
 

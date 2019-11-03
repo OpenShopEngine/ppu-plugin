@@ -2,7 +2,7 @@ require_dependency "ppu/application_controller"
 
 module Ppu
   class TransactionsController < ApplicationController
-    before_action :set_transaction, only: [:show, :update, :destroy]
+    before_action :set_transaction, only: [:show, :destroy]
 
     # GET /transactions
     def index
@@ -22,15 +22,6 @@ module Ppu
 
       if @transaction.save
         render json: @transaction, status: :created, location: @transaction
-      else
-        render json: @transaction.errors, status: :unprocessable_entity
-      end
-    end
-
-    # PATCH/PUT /transactions/1
-    def update
-      if @transaction.update(ActiveSupport::JSON.decode(request.body.read))
-        render json: @transaction
       else
         render json: @transaction.errors, status: :unprocessable_entity
       end

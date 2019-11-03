@@ -5,7 +5,8 @@ class CreatePpuCheckouts < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :phone
       t.string :address
-      t.decimal :products, array: true
+      t.string :products, array: true
+      t.references :payment_system, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -15,7 +15,7 @@ module Ppu
 
     test "should create transaction" do
       assert_difference('Transaction.count') do
-        post transactions_url, params: { transaction: { checkout_id: @transaction.checkout_id, payout: @transaction.payout } }, as: :json
+        post transactions_url, params: { transaction: { checkout_id: @transaction.checkout_id, original: @transaction.original, payout: @transaction.payout } }, as: :json
       end
 
       assert_response 201
@@ -27,7 +27,7 @@ module Ppu
     end
 
     test "should update transaction" do
-      patch transaction_url(@transaction), params: { transaction: { checkout_id: @transaction.checkout_id, payout: @transaction.payout } }, as: :json
+      patch transaction_url(@transaction), params: { transaction: { checkout_id: @transaction.checkout_id, original: @transaction.original, payout: @transaction.payout } }, as: :json
       assert_response 200
     end
 

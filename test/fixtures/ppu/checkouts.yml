@@ -5,11 +5,13 @@ one:
   email: MyString
   phone: MyString
   address: MyString
-  products: 9.99
+  products: one
+  ps: one
 
 two:
   fullname: MyString
   email: MyString
   phone: MyString
   address: MyString
-  products: 9.99
+  products: two
+  ps: two
