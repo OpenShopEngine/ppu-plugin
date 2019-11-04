@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_203103) do
+ActiveRecord::Schema.define(version: 2019_11_04_172818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,9 @@ ActiveRecord::Schema.define(version: 2019_11_03_203103) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.bigint "ppu_transaction_id"
     t.index ["payment_system_id"], name: "index_ppu_checkouts_on_payment_system_id"
+    t.index ["ppu_transaction_id"], name: "index_ppu_checkouts_on_ppu_transaction_id"
     t.index ["user_id"], name: "index_ppu_checkouts_on_user_id"
   end
 
@@ -110,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_11_03_203103) do
   add_foreign_key "assignments", "roles"
   add_foreign_key "assignments", "users"
   add_foreign_key "ppu_checkouts", "payment_systems"
+  add_foreign_key "ppu_checkouts", "ppu_transactions"
   add_foreign_key "ppu_checkouts", "users"
   add_foreign_key "ppu_transactions", "ppu_checkouts"
 end

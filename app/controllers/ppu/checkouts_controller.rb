@@ -8,7 +8,7 @@ module Ppu
     # GET /checkouts
     def index
       if @current_user.role? :admin
-        @checkouts = Checkout.all
+        @checkouts = Checkout.where("ppu_transaction_id IS NOT NULL")
         render json: @checkouts
       else
         render json: "Only for admins!", status: :bad_request

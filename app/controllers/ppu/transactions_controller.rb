@@ -30,7 +30,11 @@ module Ppu
         @transaction = Transaction.new(ActiveSupport::JSON.decode(request.body.read))
 
         if @transaction.save
-          render json: @transaction, status: :created, location: @transaction
+          if @transaction.ppu_checkout.update(:ppu_transaction_id => @transaction.id)
+            render json: @transaction, status: :created, location: @transaction
+          else
+            render json: @transaction.ppu_checkout.errors, status: :unprocessable_entity
+          end
         else
           render json: @transaction.errors, status: :unprocessable_entity
         end
