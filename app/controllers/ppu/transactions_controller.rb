@@ -8,7 +8,7 @@ module Ppu
     # GET /transactions
     def index
       if @current_user.role? :admin
-        @transactions = Transaction.all
+        @transactions = Transaction.all.order(:updated_at => :desc)
         render json: @transactions
       else
         render json: "Only for admins!", status: :bad_request
