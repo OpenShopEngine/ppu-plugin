@@ -17,11 +17,7 @@ module Ppu
 
     # GET /checkouts/1
     def show
-      if @current_user.role? :admin
-        render json: @checkout
-      else
-        render json: "Only for admins!", status: :bad_request
-      end
+      render json: @checkout
     end
 
     # POST /checkouts
