@@ -9,5 +9,6 @@ module Ppu
     def init
       self.status  ||= 'queue'
     end
+
   end
 end

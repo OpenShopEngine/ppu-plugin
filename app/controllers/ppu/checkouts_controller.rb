@@ -8,7 +8,7 @@ module Ppu
     # GET /checkouts
     def index
       if @current_user.role? :admin
-        @checkouts = Checkout.where.not(ppu_transaction_id: nil, status: 'sent').order(:updated_at => :desc, :status => :asc)
+        @checkouts = Checkout.where.not(ppu_transaction_id: nil).order(:updated_at => :desc, :status => :asc)
         render json: @checkouts
       else
         render json: "Only for admins!", status: :bad_request
@@ -23,7 +23,7 @@ module Ppu
     # POST /checkouts
     def create
       if @current_user.role? :payment_system
-        @checkout = Checkout.new(ActiveSupport::JSON.decode(request.body.read))
+        @checkout = Checkout.new(checkout_params)
 
         if @checkout.save
           render json: @checkout, status: :created, location: @checkout
@@ -38,7 +38,7 @@ module Ppu
     # PATCH/PUT /checkouts/1
     def update
       if @current_user.role? :admin
-        if @checkout.update(ActiveSupport::JSON.decode(request.body.read))
+        if @checkout.update(update_checkout_params)
           render json: @checkout
         else
           render json: @checkout.errors, status: :unprocessable_entity
@@ -65,6 +65,16 @@ module Ppu
       # Use callbacks to share common setup or constraints between actions.
       def set_checkout
         @checkout = Checkout.find(params[:id])
+      end
+
+      # Only allow a trusted parameter "white list" through.
+      def checkout_params
+        params.permit(:id, :fullname, :address, :email, :phone, :payment_system_id, :user_id, :products => [])
+      end
+
+      # Only allow a trusted parameter "white list" through.
+      def update_checkout_params
+        params.permit(:id, :status, :track_number)
       end
   end
 end
